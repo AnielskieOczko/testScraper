@@ -16,11 +16,13 @@ public class getArticle {
         String articleDate = articleDoc.select("div.jeg_meta_date a").text();
         String articleCategory = articleDoc.select("div.jeg_meta_category span a").text();
 
+
         Map<String, String> articleData = new HashMap<String,String>();
         articleData.put("title", articleTitle);
         articleData.put("body", articleBody);
         articleData.put("date", articleDate);
         articleData.put("category", articleCategory);
+        articleData.put("url", articleURL);
 
         return articleData;
     }

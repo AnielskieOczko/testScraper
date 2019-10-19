@@ -59,8 +59,13 @@ public class test_scraper {
         PrintWriter writer = new PrintWriter("C:\\Users\\RJ\\Desktop\\links\\linksList.txt", "UTF-8");
         PrintWriter jsonWriter = new PrintWriter("C:\\Users\\RJ\\Desktop\\links\\json.txt", "UTF-8");
 
+        // initialize JSON main object (store all articles)
+        // initialize JSON array (store single article from link)
         JSONObject mainobj = new JSONObject();
         JSONArray arr = new JSONArray();
+
+        // initialize variable to store XML code
+        String allArticles = "";
 
         for (Element link : links) {
             String linkHref = link.attr("href");
@@ -70,13 +75,17 @@ public class test_scraper {
 
             // get article body text, post date, category
             Map articleData = getArticle.articleContainerToText(linkHref);
-            System.out.println(articleData);
+
             // create json
             JSONObject myJson = jsonWritter.writeToJson(articleData);
             arr.put(myJson);
             mainobj.put("Articles", arr);
             System.out.println(mainobj);
 
+            // create XML
+            String xml = XMLWritter.writeToXML(articleData);
+            allArticles += xml;
+            System.out.println(allArticles);
         }
 
         writer.close();
